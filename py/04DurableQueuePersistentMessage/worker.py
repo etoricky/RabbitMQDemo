@@ -13,9 +13,9 @@ def callback(ch, method, properties, body):
 
 connection = pika.BlockingConnection(pika.ConnectionParameters('127.0.0.1'))
 channel = connection.channel()
-channel.queue_declare(queue='hello')
+channel.queue_declare(queue='task_queue', durable=True)
 channel.basic_consume(callback,
-                      queue='hello',
+                      queue='task_queue',
                       no_ack=False)
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.start_consuming()
